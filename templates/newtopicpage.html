@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} Start new topic {% endblock %}
+
+{% block breadcrumb_navigation %}
+	<a href="{% url 'home_url' %}" class="css-bar-item breadcrumb__link" >Forum</a>
+	<span class="css-bar-item">/</span>
+	<a href="{% url 'board_topics_url' board.id %}" class="css-bar-item breadcrumb__link" >{{ board.name }}</a>
+	<span class="css-bar-item">/</span>
+	<a href="{% url 'new_topic_url' board.id %}" class="css-bar-item breadcrumb__link" >Nowy wpis</a>
+	<span class="css-bar-item">/</span>
+{% endblock %}
+
+{% block content %}
+	<div class="css-card-4 css-grey-80 css-padding form--modal">
+		<div class="css-container"><h4 class="form--modal__title">Nowy wpis</h4></div>
+		<form method="post" class="css-form-element form--modal__input" novalidate>
+			{% csrf_token %}
+			{{ form.media }}
+			{% include 'form_template.html' %}
+			<button type="submit" class="css-button button--primary css-margin-top" >Dodaj wpis</button>
+		</form>
+	</div>
+{% endblock %}

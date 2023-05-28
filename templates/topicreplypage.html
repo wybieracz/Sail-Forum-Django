@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} Odpowiedź {% endblock %}
+
+{% block breadcrumb_navigation %} 
+	<a href="{% url 'home_url' %}" class="css-bar-item breadcrumb__link" >Forum</a>
+	<span class="css-bar-item">/</span>
+	<a href="{% url 'board_topics_url' board.id %}" class="css-bar-item breadcrumb__link" >{{ board.name }}</a>
+	<span class="css-bar-item">/</span>
+	<a href="{% url 'topic_page_url' board_id=board.id topic_id=topic.id %}" class="css-bar-item breadcrumb__link" >{{ topic.subject }}</a>
+	<span class="css-bar-item">/</span>
+	<a href="{% url 'topic_reply_url' board_id=board.id topic_id=topic.id %}" class="css-bar-item breadcrumb__link" >Odpowiedź</a>
+	<span class="css-bar-item">/</span>
+{% endblock breadcrumb_navigation %}
+
+{% block content %}
+	<div class="css-card-4 css-grey-80 css-padding form--modal">
+		<div class="css-container"><h4 class="form--modal__title">Re: {{ topic.subject }}</h4></div>
+		<form method="post" class="css-form-element form--modal__input" novalidate>
+			{% csrf_token %}
+			{{ form.media }}
+			{% include 'form_template.html' %}
+			<div class="css-margin-top" style="display: flex">
+				<div style="display: flex">
+					<button type="submit" class="css-button button--primary" >Odpowiedz</button>
+				</div>
+				<div style="display: flex; border-left: 1px solid rgba(0,0,0,0)">
+					<a href="{% url 'topic_page_url' board_id=board.id topic_id=topic.id %}" class="css-button button--secondary">Odrzuć</a>
+				</div>
+			</div>
+		</form>
+	</div>
+{% endblock content %}

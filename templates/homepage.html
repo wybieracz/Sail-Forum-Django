@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+<! not using title  as using default value of base.html>
+
+{% block breadcrumb_navigation %}
+	<a href="{% url 'home_url' %}" class="css-bar-item breadcrumb__link" >Forum</a>
+	<span class="css-bar-item">/</span>
+{% endblock %}
+
+{% block content %}
+	<table class="css-section css-table-all css-centered css-card-4">
+		<tr class="css-grey-80">
+			<th>Kategoria</th>
+			<th>Tematy</th>
+			<th>Wpisy</th>
+			<th>Ostatnia akcja</th>
+		</tr>
+		{% for board in boards %}
+			<tr class="css-grey-90">
+				<td>
+					<a href="{% url 'board_topics_url' board.id %}" class="link">{{ board.name }}</a> <br>
+					<small>{{ board.description }}</small>
+				</td>
+				<td>{{ board.topics.count }}</td>
+				<td>{{ board.posts_count }}</td>
+				<td>{{ board.lastupdated_on|naturaltime }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+{% endblock %}

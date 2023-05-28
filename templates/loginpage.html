@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} Log In {% endblock %}
+
+{% block account %}
+	<a href="{% url 'signup_url' %}" class="css-button button--primary">Rejestracja</a>
+{% endblock account %}
+
+{% block breadcrumb_navigation %}
+	<a href="{% url 'home_url' %}" class="css-bar-item breadcrumb__link">Strona główna</a>
+	<span class="css-bar-slash">/</span>
+	<a href="{% url 'login_url' %}" class="css-bar-item breadcrumb__link">Logowanie</a>
+	<span class="css-bar-slash">/</span>
+{% endblock %}
+
+{% block content %}
+	<div class="css-card-4 css-grey-80 css-padding form--modal css-align-center-50">
+		<div class="css-container"><h4 class="form--modal__title">Logowanie</h4></div>
+		<form method="post" class="css-form-element form--modal__input" novalidate>
+			{% csrf_token %}
+			{% include 'form_template.html' %}
+			<button type="submit" class="css-button button--primary css-margin-top">Zaloguj</button>
+		</form>
+	</div>
+{% endblock %}

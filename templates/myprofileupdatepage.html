@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} My Account {% endblock %}
+
+{% block breadcrumb_navigation %}
+	<a href="{% url 'home_url' %}" class="css-bar-item breadcrumb__link" >Forum</a>
+	<span class="css-bar-item">/</span>
+	<a href="{% url 'myprofile_update_url' %}" class="css-bar-item breadcrumb__link" >Moje konto</a>	
+	<span class="css-bar-item">/</span>
+{% endblock %}
+
+{% block content %}
+	<div class="css-card-4 css-grey-80 css-padding form--modal css-align-center-50">
+		<div class="css-container"><h4 class="form--modal__title">Moje konto</h4></div>
+		<form method="post" class="css-form-element form--modal__input" novalidate>
+			{% csrf_token %}
+			{% include 'form_template.html' %}
+			<button type="submit" class="css-button button--primary css-margin-top" >Zapisz zmiany</button>
+		</form>
+	</div>
+{% endblock %}

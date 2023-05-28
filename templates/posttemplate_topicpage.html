@@ -1,0 +1,45 @@
+{% load static %}
+{% load humanize %}
+{% load custom_tags_filters %}
+<div id={{ post.id }} class="css-card-2">
+	<div class="post">
+		{% if forloop.first %}
+			<div class="css-center post__header">
+				{{ topic.subject }}
+			</div>
+		{% endif %}
+		<div class="post__content">
+			<div class="post__author">
+				<div class="post__avatar">
+					{% if post.created_by.is_superuser %}
+					<span class="material-symbols-outlined">
+						verified
+					</span>
+					{% else %}
+					<span class="material-symbols-outlined">
+						account_circle
+					</span>
+					{% endif %}
+				</div>
+				<div class="post__username">{{ post.created_by }}</div>
+				<div class="post__counter">Wpisów: {{ post.created_by.posts.count }}</div>
+				{% if post.created_by == request.user %}
+					<div>
+						<a href="{% url 'post_edit_url' board_id=board.id topic_id=topic.id post_id=post.id %}" class="css-button button--primary css-margin-top">Edytuj</a>	
+					</div>
+				{% endif %}
+			</div>
+			<div class="post__data">
+				<div class="post__text">
+					{{ post.get_message_as_markdown }}
+				</div>
+				<div class="post__dates">
+					<div class="post__date">Stworzono: {{ post.created_on|naturaltime }}</div>
+					<div class="post__date">Zmiana: {{ post.updated_on|naturaltime }}</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+

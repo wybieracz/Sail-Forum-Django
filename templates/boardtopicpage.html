@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}
+	{{ board.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb_navigation %}
+	<a href="{% url 'home_url' %}" class="css-bar-item breadcrumb__link" >Forum</a>
+	<span class="css-bar-item">/</span>
+	<a href="{% url 'board_topics_url' board.id %}" class="css-bar-item breadcrumb__link" >{{ board.name }}</a>
+	<span class="css-bar-item">/</span>
+{% endblock %}
+	
+{% block content %}
+	<div class="table__action-buttons">
+		<a href="{% url 'new_topic_url' board.id %}" class="css-button button--primary" >Dodaj</a>
+	</div>
+	<table class="css-section css-table-all css-centered css-card-4">
+		<tr class="css-grey-80">
+			<th>Wpis</th>
+			<th>Odpowiedzi</th>
+			<th>Wyświetlenia</th>
+			<th>Użytkownik</th>
+			<th>Utworzono</th>
+			<th>Ostatnia akcja</th>
+		</tr>
+		{% for topic in topics %}
+		<tr class="css-grey-90">
+			<td> <a href="{% url 'topic_page_url' board_id=board.id topic_id=topic.id %}" class="link">{{ topic.subject }} </a> </td>	
+			<td>{{ topic.replies_count }}</td>
+			<td>{{ topic.views }}</td>
+			<td>{{ topic.created_by }}</td>
+			<td>{{ topic.created_on|naturaltime }}</td>
+			<td>{{ topic.lastupdated_on|naturaltime }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+{% endblock %}
+

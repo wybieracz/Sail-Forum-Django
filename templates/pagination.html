@@ -1,0 +1,55 @@
+{% load custom_tags_filters %}
+<div>
+	{# objects passed to template are : paginator, page_obj, is_paginated, object_list #}
+	{# since paginator.page_range is range(start,stop,step) #}
+	{% if is_paginated %}
+		<div class="pagination">
+			{# logic for first #}
+			{% if page_obj.number == 1 %}
+				<a class="css-button button--inverse css-disabled">first</a>
+			{% else %}
+				<a href="?page=1" class="css-button button--inverse">first</a>
+			{% endif %}
+			{# logic for previous #}
+			{% if page_obj.has_previous %}
+				<a href="?page={{ page_obj.previous_page_number }}" class="css-button button--inverse">previous</a>
+			{% else %}
+				<a class="css-button button--inverse css-disabled">previous</a>
+			{% endif %}
+			{# logic for middle links #}
+			{% if paginator.num_pages <= 3 %}
+				{% for pageno in paginator.page_range %}
+					{% if page_obj.number == pageno %}
+						<a href="?page={{ pageno }}" class="css-button button--primary">{{ pageno }}</a>
+					{% else %}
+						<a href="?page={{ pageno }}" class="css-button button--inverse">{{ pageno }}</a>
+					{% endif %}
+				{% endfor %}
+			{% else %}
+				{# for no of pages >3, the logic is written in template tag #}
+				{% get_pagination_values_3 as pagination_list %}
+				{% for pageno in pagination_list %}
+					{% if page_obj.number == pageno %}
+						<a href="?page={{ pageno }}" class="css-button button--primary">{{ pageno }}</a>
+					{% else %}
+						<a href="?page={{ pageno }}" class="css-button button--inverse">{{ pageno }}</a>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+			{# logic for next #}
+			{% if page_obj.has_next %}
+				<a href="?page={{ page_obj.next_page_number }}" class="css-button button--inverse">next</a>
+			{% else %}
+				<a class="css-button button--inverse css-disabled">next</a>
+			{% endif %}
+			{# logic for last #}
+			{% if page_obj.number == paginator.num_pages %}
+				<a class="css-button button--inverse css-disabled">last</a>
+			{% else %}
+				<a href="?page={{ paginator.num_pages }}" class="css-button button--inverse">last</a>
+			{% endif %}
+		</div>
+	{% endif %}
+</div>
+
+

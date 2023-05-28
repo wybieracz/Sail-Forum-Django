@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ topic.subject}} {% endblock %}
+
+{% block breadcrumb_navigation %} 
+	<a href="{% url 'home_url' %}" class="css-bar-item breadcrumb__link" >Forum</a>
+	<span class="css-bar-item">/</span>
+	<a href="{% url 'board_topics_url' board.id %}" class="css-bar-item breadcrumb__link" >{{ board.name }}</a>
+	<span class="css-bar-item">/</span>
+	<a href="{% url 'topic_page_url' board_id=board.id topic_id=topic.id %}" class="css-bar-item breadcrumb__link" >{{ topic.subject }}</a>
+	<span class="css-bar-item">/</span>
+{% endblock breadcrumb_navigation %}
+
+{% block content %}
+	<div class="table__action-buttons">
+		<a href="{% url 'topic_reply_url' board_id=board.id topic_id=topic.id %}" class="css-button button--primary" >Odpowiedz</a>
+	</div>
+	{% for post in posts %}
+		{% include 'posttemplate_topicpage.html' %}
+	{% endfor %}
+{% endblock content %}

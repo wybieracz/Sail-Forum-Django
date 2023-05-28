@@ -1,0 +1,22 @@
+{% load custom_tags_filters %}
+<div>	
+	<div class="css-text-red">
+		{% for error in form.non_field_errors %}
+			{{ error }}
+		{% endfor %}
+	</div>
+	{% for field in form %}
+		{{ field.label_tag }}
+		{% if form.is_bound %}
+			{% if field.errors %}
+				{% for error in field.errors %}
+					<b class="css-text-red css-small">{{ error }}</b>
+				{% endfor %}
+			{% endif %}
+		{% endif %}
+		<div class="{{ field|red_border_if_error_filter }}" >
+			{{ field }}
+		</div>
+		<small class='css-text-grey-80'>{{ field.help_text }}</small>
+	{% endfor %}
+</div>

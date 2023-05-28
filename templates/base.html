@@ -1,0 +1,47 @@
+{% load static %}<!DOCTYPE html>
+<html>
+	<head>
+		<title>{% block title %}Forum{% endblock title %}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+		<link rel="stylesheet" href="{% static 'styles.css' %}" >	<! for all styling >
+	</head>
+	<body>
+		<div class="header">
+			<div class="header__content">
+				<span class="header__icon material-symbols-outlined">anchor</span>
+				<h1 class="header__title">Forum żeglarskie</h1>
+			</div>
+			{% block account %}
+				{% if user.is_authenticated %}
+					<div class="css-dropdown-hover css-right css-inline-block" >
+						<button class="css-button button--primary">{{ user.username }}</button>
+						<div class="css-dropdown-content css-bar-block css-grey-80" style="right: 0;">
+							<a href="{% url 'myprofile_update_url' %}" class="css-bar-item css-button button--inverse">Konto</a>
+							<a href="{% url 'password_change_url' %}" class="css-bar-item css-button button--inverse">Zmiana hasła</a>
+							<a href="{% url 'logout_url' %}" class="css-bar-item css-button button--inverse">Wyloguj</a>
+						</div>
+					</div>
+				{% else %}
+				<div class="header__buttons">
+					<a href="{% url 'signup_url' %}" class="css-button button--primary">Rejestracja</a>
+					<a href="{% url 'login_url' %}" class="css-button button--tertiary">Logowanie</a>
+				</div>
+				{% endif %}
+			{% endblock account %}
+		</div>
+		<div class="css-margin--medium css-container">	
+			<div class="css-bar css-margin-bottom">
+				{% block breadcrumb_navigation %} {% endblock breadcrumb_navigation %}
+			</div>
+			{% block content %}	{% endblock content %}
+			{% block pagination %} {% include 'pagination.html' %}	{% endblock pagination %}
+
+		</div>
+	</body>
+</html>
