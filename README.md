@@ -43,3 +43,6 @@ Django based discussion forum for Scripting Languages Lecture on Gdansk Universi
 7. Create a user `python manage.py createsuperuser`.
 8. Run live server `python manage.py runserver`.
 9. Open in browser `127.0.0.1:8000/`.
+
+## Credits
+Project based on ![discussion_forum](https://github.com/mir1198yusuf/discussion_forum)
