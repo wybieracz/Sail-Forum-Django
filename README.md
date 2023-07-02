@@ -20,6 +20,12 @@ Django based discussion forum for Scripting Languages Lecture on Gdansk Universi
 * Replies to topic
 * Roles based avatars
 
+## Database schema
+![db](/ss/Database.png)
+
+## Site map
+![map](/ss/Map.png)
+
 ## Screenshots
 ![login](/ss/login.png)
 ![register](/ss/register.png)
